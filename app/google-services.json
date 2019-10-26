@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "157157837983",
+    "firebase_url": "https://edc-pvg-16e33.firebaseio.com",
+    "project_id": "edc-pvg-16e33",
+    "storage_bucket": "edc-pvg-16e33.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157157837983:android:efc7aa706e5d6daddd26aa",
+        "android_client_info": {
+          "package_name": "com.example.edcpvg09"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157157837983-rp2j4742ecm1u4gl81bug7bgkduvvpna.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.edcpvg09",
+            "certificate_hash": "16863ca5e312359b6275eea557fc205044c8c5e0"
+          }
+        },
+        {
+          "client_id": "157157837983-ikl3924g3s1q03dvbg22d6ig98airnmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgwSfxsUTg1g8F20E4ziHb2DidFLfgWKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157157837983-ikl3924g3s1q03dvbg22d6ig98airnmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

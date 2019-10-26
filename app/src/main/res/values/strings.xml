@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">EDC PVG</string>
+    <string name="welcome">Welcome To EDC App</string>
+    <string name="signout">Log Out</string>
+    <string name="Loginpic">Login Page</string>
+    <string name="name">name</string>
+    <string name="AddExpense">Add Expense</string>
+    <string name="addBunk">Add Bunk Sheet</string>
+    <string name="seeExpense">See Approved Expenses</string>
+    <string name="seeBunk">See Approved Bunk Sheets</string>
+    <string name="try1">Trial</string>
+    <string name="title">Title</string>
+    <string name="desciption">Description</string>
+    <string name="approved_by">Approved By</string>
+    <string name="Amount">Amount</string>
+    <string name="title_ex">Add a new Expense</string>
+    <string name="upload">Choose Bill Photo To Upload</string>
+    <string name="image">Image</string>
+
+</resources>
