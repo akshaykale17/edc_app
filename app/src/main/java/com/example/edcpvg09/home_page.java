@@ -36,6 +36,10 @@ public class home_page extends AppCompatActivity {
             textView1 = findViewById(R.id.username);
             textView1.setText(name);
         }
+        else
+        {
+            startActivity(new Intent(home_page.this,MainActivity.class));
+        }
     }
 
     @Override

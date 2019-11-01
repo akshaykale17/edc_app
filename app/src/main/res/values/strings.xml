@@ -16,5 +16,6 @@
     <string name="title_ex">Add a new Expense</string>
     <string name="upload">Choose Bill Photo To Upload</string>
     <string name="image">Image</string>
+    <string name="submit">Submit</string>
 
 </resources>
