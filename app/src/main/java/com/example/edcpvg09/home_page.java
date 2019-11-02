@@ -5,24 +5,34 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class home_page extends AppCompatActivity {
     Button button2 ;
     FirebaseAuth mAuth;
-
+    String temail;
     FirebaseAuth.AuthStateListener mAuthListner;
-
+    int id;
     Button addEx ;
 //    Button addBunk = findViewById(R.id.addBunk);
 //    Button seeEx = findViewById(R.id.seeApprovedEx);
 //    Button seeBunk = findViewById(R.id.seeApprovedBunk);
-
+    FirebaseFirestore db= FirebaseFirestore.getInstance();
     String name;
     TextView textView1 ;
 
@@ -93,5 +103,52 @@ public class home_page extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
             }
         });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+         id=item.getItemId();
+        db.collection("tInfo").document("temail")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Log.d("", "DocumentSnapshot data: " + document.getData());
+
+                                temail=document.get("email").toString();
+                                System.out.println(temail);
+
+
+
+                                if(id==R.id.master) {
+                                    System.out.println(mAuth.getCurrentUser().getEmail());
+                                    if (mAuth.getCurrentUser().getEmail().equals(temail)) {
+                                        startActivity(new Intent(home_page.this,tMasterHome.class));
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Authorized Personnel Only :)", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            } else {
+                                Log.d("", "No such document");
+                            }
+                        } else {
+                            Log.d("", "get failed with ", task.getException());
+                        }
+
+                    }
+                });
+
+
+        return true;
     }
 }
