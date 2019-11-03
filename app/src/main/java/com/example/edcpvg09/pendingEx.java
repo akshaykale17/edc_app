@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -51,13 +52,15 @@ public class pendingEx extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if(direction==2)
+                if(direction==4)
                 {
-                    System.out.println("2");
+                    System.out.println("left");
+                    adapter.approved(viewHolder.getAdapterPosition());
                 }
-                if(direction==3)
+                if(direction==8)
                 {
-                    System.out.println("3");
+                    adapter.deleteItem(viewHolder.getAdapterPosition());
+
                 }
             }
         }).attachToRecyclerView(recyclerView);

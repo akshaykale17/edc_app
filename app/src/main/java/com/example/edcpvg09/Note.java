@@ -7,6 +7,7 @@ public class Note {
     private String imageurl;
     private String email;
     private String approvedBy;
+    private String fileName;
     private int amount;
 
     public Note()
@@ -15,8 +16,8 @@ public class Note {
     }
 
 
-    public Note(String title,String desp,String name,String imageurl,String email,String approvedBy,int amount) {
-
+    public Note(String title,String desp,String name,String imageurl,String email,String approvedBy,int amount,String fileName) {
+        this.fileName=fileName;
         this.title=title;
         this.amount=amount;
         this.approvedBy=approvedBy;
@@ -25,6 +26,10 @@ public class Note {
         this.email=email;
         this.name=name;
 
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 
     public String getTitle() {

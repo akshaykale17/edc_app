@@ -22,6 +22,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser() != null)
                 {
+                    Map<String,Object> temp = new HashMap<>();
+                    temp.put("email",firebaseAuth.getCurrentUser().getEmail());
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("users").document(firebaseAuth.getCurrentUser().getDisplayName()).set(temp);
                     startActivity(new Intent(MainActivity.this,home_page.class));
                 }
            }

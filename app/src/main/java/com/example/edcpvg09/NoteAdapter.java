@@ -5,15 +5,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.NoteHolder> {
 
@@ -44,8 +57,78 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
         return new NoteHolder(v);
     }
 
-    public void deleteItem(int position){
+
+
+    public void approved(int position){
+        final DocumentSnapshot snapshot=getSnapshots().getSnapshot(position);
+        Map<String, Object> approved = new HashMap<>();
+        approved.put("title",snapshot.get("title"));
+        approved.put("amount",Integer.parseInt(snapshot.get("amount").toString()));
+        approved.put("desp",snapshot.get("desp"));
+        approved.put("approvedBy",snapshot.get("approvedBy"));
+        approved.put("fileName",snapshot.get("fileName"));
+        approved.put("imageurl",snapshot.get("imageurl"));
+        final FirebaseFirestore db= FirebaseFirestore.getInstance();
         getSnapshots().getSnapshot(position).getReference().delete();
+        db.collection("2019/"+snapshot.get("email")+"/expenses").add(approved)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                            db.collection("tInfo").document("final").update("finalOwe", FieldValue.increment(Integer.parseInt(snapshot.get("amount").toString())));
+//                        db.collection("2019").document(snapshot.get("email").toString()).collection("expenses").document("total").update("IndTotal",FieldValue.increment(Integer.parseInt(snapshot.get("amount").toString())));
+                       // db.document("2019/"+snapshot.get("email")).update("Total",FieldValue.increment(Integer.parseInt(snapshot.get("amount").toString())));
+
+
+
+                        DocumentReference docIdRef = db.collection("2019").document(snapshot.get("email").toString()).collection("expenses").document("total");
+                        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        if (document.get("IndTotal") != null) {
+                                            db.collection("2019").document(snapshot.get("email").toString()).collection("expenses").document("total").update("IndTotal",FieldValue.increment(Integer.parseInt(snapshot.get("amount").toString())));
+                                            //Log.d(TAG, "your field exist");
+                                        } else {
+                                            Map<String,Object> temp = new HashMap<>();
+                                            temp.put("IndTotal",Integer.parseInt(snapshot.get("amount").toString()));
+                                            db.collection("2019").document(snapshot.get("email").toString()).collection("expenses").document("total").set(temp);
+                                           // Log.d(TAG, "your field does not exist");
+                                            //Create the filed
+                                        }
+                                    }
+                                    else {
+                                        Map<String,Object> temp = new HashMap<>();
+                                        temp.put("IndTotal",Integer.parseInt(snapshot.get("amount").toString()));
+                                        db.collection("2019").document(snapshot.get("email").toString()).collection("expenses").document("total").set(temp);
+
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+
+    }
+
+    public void deleteItem(int position){
+        DocumentSnapshot snapshot=getSnapshots().getSnapshot(position);
+        final String url=snapshot.get("fileName").toString();
+
+        System.out.println(url);
+       //System.out.println( getSnapshots().getSnapshot(position).getReference().get());
+
+        StorageReference Ref = FirebaseStorage.getInstance().getReference("uploads/"+url);
+
+        Ref.delete();
+
+
+
+        getSnapshots().getSnapshot(position).getReference().delete();
+
+
+
     }
 
     class NoteHolder extends RecyclerView.ViewHolder{

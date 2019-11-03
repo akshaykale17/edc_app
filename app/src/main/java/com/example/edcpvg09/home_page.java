@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class home_page extends AppCompatActivity {
     Button button2 ;
+    Button approved;
     FirebaseAuth mAuth;
     String temail;
     FirebaseAuth.AuthStateListener mAuthListner;
@@ -64,26 +65,13 @@ public class home_page extends AppCompatActivity {
             }
         });
 
-//        addBunk.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(home_page.this,addExpense.class);
-//            }
-//        });
-//
-//        seeBunk.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(home_page.this,addExpense.class);
-//            }
-//        });
-//
-//        seeEx.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(home_page.this,addExpense.class);
-//            }
-//        });
+        approved = findViewById(R.id.seeApprovedEx);
+        approved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         button2 = findViewById(R.id.button);
         mAuth = FirebaseAuth.getInstance();

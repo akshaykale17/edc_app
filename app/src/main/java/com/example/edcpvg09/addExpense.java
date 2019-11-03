@@ -53,6 +53,7 @@ public class addExpense extends AppCompatActivity {
     private Uri imageUri;
     private String URL;
     ImageView imview;
+    String fileName;
 
     private StorageTask uploadTask;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -147,6 +148,7 @@ public class addExpense extends AppCompatActivity {
                             },500);
 
                             Toast.makeText(getApplicationContext(),"Upload Done",Toast.LENGTH_LONG).show();
+
                             fileRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
@@ -155,6 +157,7 @@ public class addExpense extends AppCompatActivity {
                                         System.out.println(task.getResult());
                                     }else {
                                         URL = task.getResult().toString();
+                                        fileName=fileRef.getName();
                                         System.out.println(title.getText().toString());
                                         System.out.println(desp.getText().toString());
                                         System.out.println(approvedBy.getText().toString());
@@ -178,7 +181,7 @@ public class addExpense extends AppCompatActivity {
                                         System.out.println(URL);
                                         info.put("imageurl",URL);
                                         info.put("email",mAuth.getCurrentUser().getEmail());
-
+                                        info.put("fileName",fileName);
 
                                         if(title.getText().toString()!="Title" && desp.getText().toString()!="Description" && approvedBy.getText().toString()!="Approved By" ){
                                             db.collection("pending")
