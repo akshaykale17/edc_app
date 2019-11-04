@@ -69,7 +69,7 @@ public class home_page extends AppCompatActivity {
         approved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(home_page.this,seeApprovedExpense.class));
             }
         });
 
