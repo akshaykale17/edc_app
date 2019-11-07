@@ -50,86 +50,95 @@ public class searchInd extends AppCompatActivity {
             public void onClick(View view) {
 
                 final FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.document("users/"+search.getText().toString().toLowerCase())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if(task.isSuccessful())
-                                {
-                                    DocumentSnapshot documentSnapshot = task.getResult();
-                                    if(documentSnapshot.get("email")==null)
+                String temp1= search.getText().toString().toLowerCase();
+                if(temp1==null)
+                {
+                    Toast.makeText(searchInd.this, "Enter Name", Toast.LENGTH_SHORT).show();
+                    return;
+                }else
+                {
+                    db.document("users/"+temp1)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if(task.isSuccessful())
                                     {
+                                        DocumentSnapshot documentSnapshot = task.getResult();
+                                        if(documentSnapshot.get("email")==null)
+                                        {
+                                            Toast.makeText(searchInd.this, "Name Not Avail", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                        else
+                                        {
+
+                                            String Temp;
+                                            //Toast.makeText(searchInd.this, "Got It", Toast.LENGTH_SHORT).show();
+                                            Temp =documentSnapshot.get("email").toString();
+                                            notebook = db.collection("2019/"+ Temp+"/expenses");
+                                            System.out.println(Temp);
+
+                                            db.collection("2019").document(Temp).collection("expenses").document("total")
+                                                    .get()
+                                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                DocumentSnapshot document = task.getResult();
+                                                                if (document.exists()) {
+                                                                    Log.d("", "DocumentSnapshot data: " + document.getData());
+
+                                                                    amount.setText("Total Amount = "+ document.get("IndTotal").toString());
+                                                                } else {
+                                                                    Log.d("", "No such document");
+                                                                }
+                                                            } else {
+                                                                Log.d("", "get failed with ", task.getException());
+                                                            }
+                                                        }
+                                                    });
+
+
+
+                                            Query query = notebook.orderBy("title");
+                                            FirestoreRecyclerOptions<NoteFinal> options1=new FirestoreRecyclerOptions.Builder<NoteFinal>()
+                                                    .setQuery(query,NoteFinal.class)
+                                                    .build();
+
+                                            adapter=new NoteFinalAdapter(options1);
+
+
+                                            RecyclerView recyclerView = findViewById(R.id.search1);
+                                            recyclerView.setHasFixedSize(true);
+                                            recyclerView.setLayoutManager(new LinearLayoutManager(searchInd.this, LinearLayoutManager.VERTICAL, false));
+                                            //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                                            recyclerView.setNestedScrollingEnabled(true);
+                                            recyclerView.setAdapter(adapter);
+
+
+
+
+                                            adapter.startListening();
+
+
+                                        }
+
+                                    }
+                                    else {
                                         Toast.makeText(searchInd.this, "Name Not Avail", Toast.LENGTH_SHORT).show();
 
                                     }
-                                    else
-                                    {
-
-                                        String Temp;
-                                        //Toast.makeText(searchInd.this, "Got It", Toast.LENGTH_SHORT).show();
-                                        Temp =documentSnapshot.get("email").toString();
-                                        notebook = db.collection("2019/"+ Temp+"/expenses");
-                                        System.out.println(Temp);
-
-                                        db.collection("2019").document(Temp).collection("expenses").document("total")
-                                                .get()
-                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            DocumentSnapshot document = task.getResult();
-                                                            if (document.exists()) {
-                                                                Log.d("", "DocumentSnapshot data: " + document.getData());
-
-                                                                amount.setText("Total Amount = "+ document.get("IndTotal").toString());
-                                                            } else {
-                                                                Log.d("", "No such document");
-                                                            }
-                                                        } else {
-                                                            Log.d("", "get failed with ", task.getException());
-                                                        }
-                                                    }
-                                                });
-
-
-
-                                        Query query = notebook.orderBy("title");
-                                        FirestoreRecyclerOptions<NoteFinal> options1=new FirestoreRecyclerOptions.Builder<NoteFinal>()
-                                                .setQuery(query,NoteFinal.class)
-                                                .build();
-
-                                        adapter=new NoteFinalAdapter(options1);
-
-
-                                        RecyclerView recyclerView = findViewById(R.id.search1);
-                                        recyclerView.setHasFixedSize(true);
-                                        recyclerView.setLayoutManager(new LinearLayoutManager(searchInd.this, LinearLayoutManager.VERTICAL, false));
-                                        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                                        recyclerView.setNestedScrollingEnabled(true);
-                                        recyclerView.setAdapter(adapter);
-
-
-
-
-                                        adapter.startListening();
-
-
-                                    }
-
                                 }
-                                else {
-                                    Toast.makeText(searchInd.this, "Name Not Avail", Toast.LENGTH_SHORT).show();
-
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(searchInd.this, "User Name Incorrect", Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(searchInd.this, "User Name Incorrect", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            });
+
+                }
 
 
             }
