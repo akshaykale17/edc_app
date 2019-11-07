@@ -187,6 +187,13 @@ public class addExpense extends AppCompatActivity {
                                             db.collection("pending")
                                                     .add(info);
 
+                                        Handler handler1 =new Handler();
+                                        handler1.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                startActivity(new Intent(addExpense.this,home_page.class));
+                                            }
+                                        },2000);
                                             // startActivity(new Intent(addExpense.this,home_page.class));
                                         }else
                                         {

@@ -60,6 +60,7 @@ public class pendingEx extends AppCompatActivity {
                 if(direction==8)
                 {
                     adapter.deleteItem(viewHolder.getAdapterPosition());
+                    Toast.makeText(pendingEx.this, "Expense Approved", Toast.LENGTH_SHORT).show();
 
                 }
             }

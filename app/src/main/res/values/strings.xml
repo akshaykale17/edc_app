@@ -21,5 +21,6 @@
     <string name="tOwe">Total Owed</string>
     <string name="pendingT">Pending Logs</string>
     <string name="search">Search Indivisual</string>
+    <string name="no" />
 
 </resources>

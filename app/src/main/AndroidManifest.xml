@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".seeApprovedExpense"></activity>
+        <activity android:name=".searchInd"></activity>
+        <activity android:name=".seeApprovedExpense" />
         <activity android:name=".pendingEx" />
         <activity android:name=".tMasterHome" />
         <activity android:name=".addExpense" />

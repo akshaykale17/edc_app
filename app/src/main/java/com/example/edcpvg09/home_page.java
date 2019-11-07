@@ -3,6 +3,7 @@ package com.example.edcpvg09;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,10 @@ public class home_page extends AppCompatActivity {
     String temail;
     FirebaseAuth.AuthStateListener mAuthListner;
     int id;
+
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
+
     Button addEx ;
 //    Button addBunk = findViewById(R.id.addBunk);
 //    Button seeEx = findViewById(R.id.seeApprovedEx);
@@ -138,5 +143,20 @@ public class home_page extends AppCompatActivity {
 
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            super.onBackPressed();
+            finish();
+            moveTaskToBack(true);
+            //System.exit(0);
+        }
+        else { Toast.makeText(getBaseContext(), "Tap back button in order to exit", Toast.LENGTH_SHORT).show(); }
+
+        mBackPressed = System.currentTimeMillis();
     }
 }

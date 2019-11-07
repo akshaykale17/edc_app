@@ -8,6 +8,11 @@ public class NoteFinal {
     private int amount;
     private String approvedBy;
 
+    public NoteFinal(){
+        System.out.println("Tech Team");
+    };
+
+
     public NoteFinal(String title, String desp, String fileName, String imageurl, int amount, String approvedBy) {
         this.title = title;
         this.desp = desp;

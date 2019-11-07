@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     Map<String,Object> temp = new HashMap<>();
                     temp.put("email",firebaseAuth.getCurrentUser().getEmail());
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    db.collection("users").document(firebaseAuth.getCurrentUser().getDisplayName()).set(temp);
+                    db.collection("users").document(firebaseAuth.getCurrentUser().getDisplayName().toLowerCase()).set(temp);
                     startActivity(new Intent(MainActivity.this,home_page.class));
                 }
            }
