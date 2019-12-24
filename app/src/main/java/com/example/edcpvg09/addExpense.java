@@ -48,6 +48,7 @@ public class addExpense extends AppCompatActivity {
     ProgressBar mProgress;
      int a;
     FirebaseAuth  mAuth;
+
     FirebaseAuth.AuthStateListener mAuthLis;
     //TextView text ;
     private Uri imageUri;
@@ -64,6 +65,7 @@ public class addExpense extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        mProgress.setVisibility(View.GONE);
 
 
     }
@@ -111,6 +113,7 @@ public class addExpense extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Uploading Image!!!!",Toast.LENGTH_LONG).show();
                 }else
                 {
+                    mProgress.setVisibility(View.VISIBLE);
                     uploadfile();
                 }
 
@@ -143,7 +146,8 @@ public class addExpense extends AppCompatActivity {
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mProgress.setProgress(0);
+                                    mProgress.setVisibility(View.GONE);
+                                    //mProgress.setProgress(0);
                                 }
                             },500);
 
@@ -193,7 +197,7 @@ public class addExpense extends AppCompatActivity {
                                             public void run() {
                                                 startActivity(new Intent(addExpense.this,home_page.class));
                                             }
-                                        },2000);
+                                        },1200);
                                             // startActivity(new Intent(addExpense.this,home_page.class));
                                         }else
                                         {

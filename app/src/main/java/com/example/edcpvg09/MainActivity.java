@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.addAuthStateListener(mAuthLisner);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

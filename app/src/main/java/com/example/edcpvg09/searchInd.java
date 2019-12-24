@@ -31,7 +31,7 @@ public class searchInd extends AppCompatActivity {
 
     EditText search;
     Button searchbtn;
-
+    int check = 0;
     private TextView amount ;
 
     CollectionReference notebook;
@@ -51,7 +51,7 @@ public class searchInd extends AppCompatActivity {
 
                 final FirebaseFirestore db = FirebaseFirestore.getInstance();
                 String temp1= search.getText().toString().toLowerCase();
-                if(temp1==null)
+                if(temp1.equals(""))
                 {
                     Toast.makeText(searchInd.this, "Enter Name", Toast.LENGTH_SHORT).show();
                     return;
@@ -120,7 +120,7 @@ public class searchInd extends AppCompatActivity {
 
 
                                             adapter.startListening();
-
+                                            check = 1;
 
                                         }
 
@@ -148,18 +148,19 @@ public class searchInd extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
     @Override
     protected void onStop() {
         super.onStop();
-        adapter.stopListening();
+        if(check==1)
+        {
+            adapter.stopListening();
+        }
+
     }
+
+
+
+
 
 }
 

@@ -39,6 +39,7 @@ public class seeApprovedExpense extends AppCompatActivity {
             Amount=findViewById(R.id.textView4);
             name=findViewById(R.id.nameText);
             name.setText(mAuth.getCurrentUser().getDisplayName());
+
             db.collection("2019").document(mAuth.getCurrentUser().getEmail()).collection("expenses").document("total")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

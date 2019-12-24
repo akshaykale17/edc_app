@@ -22,7 +22,7 @@
             android:ems="10"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:text="@string/title"
+            android:hint="@string/title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -36,7 +36,7 @@
             android:ems="10"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:text="@string/desciption"
+            android:hint="@string/desciption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
             android:ems="10"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:text="@string/approved_by"
+            android:hint="@string/approved_by"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText2"
@@ -64,8 +64,8 @@
             android:layout_marginTop="30dp"
             android:ems="10"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            android:text="@string/Amount"
+            android:inputType="phone"
+            android:hint="@string/Amount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText3"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/title_ex"
+            android:hint="@string/title_ex"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="@string/upload"
+            android:hint="@string/upload"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,12 +119,13 @@
 
         <ProgressBar
             android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleHorizontal"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/button3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

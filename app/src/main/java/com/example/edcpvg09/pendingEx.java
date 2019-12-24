@@ -56,11 +56,12 @@ public class pendingEx extends AppCompatActivity {
                 {
                     System.out.println("left");
                     adapter.approved(viewHolder.getAdapterPosition());
+                    Toast.makeText(pendingEx.this,"Expense Approved",Toast.LENGTH_SHORT).show();
                 }
                 if(direction==8)
                 {
                     adapter.deleteItem(viewHolder.getAdapterPosition());
-                    Toast.makeText(pendingEx.this, "Expense Approved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(pendingEx.this, "Expense Rejected", Toast.LENGTH_SHORT).show();
 
                 }
             }
